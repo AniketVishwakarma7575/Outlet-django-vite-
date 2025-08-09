@@ -1,0 +1,6 @@
+/* Ensure no underline on the card link */
+.card.text-decoration-none,
+.card.text-decoration-none a {
+  text-decoration: none !important;
+  /* OR use Bootstrap utility class emerges from below */
+}

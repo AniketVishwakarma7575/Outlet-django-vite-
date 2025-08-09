@@ -1,0 +1,99 @@
+// Navbar.jsx
+import React, { useState } from "react";
+import "bootstrap/dist/css/bootstrap.min.css";
+import { IoLogoGitlab } from "react-icons/io5";
+import { RxGithubLogo } from "react-icons/rx";
+import { BiLogoFirebase } from "react-icons/bi";
+import { RiAngularjsLine } from "react-icons/ri";
+import { Link, NavLink } from "react-router-dom";
+
+const Navbar = ({ darkMode, handleDarkMode }) => {
+  const [showNavbar, setShowNavbar] = useState(false);
+
+  return (
+    <nav className="navbar navbar-expand-lg border-bottom py-3">
+      <div className="container">
+        {/* Brand Icons */}
+        <Link to="/" className="d-flex align-items-center">
+          {/* <RxGithubLogo size={40} /> */} &nbsp;&nbsp;&nbsp;&nbsp;
+          <RiAngularjsLine size={40}/>
+          &nbsp;&nbsp;&nbsp;
+        </Link>
+&nbsp;
+        {/* Brand Name */}
+        <Link className="navbar-brand fw-bold" to="/">
+          <IoLogoGitlab /> DevOutlet <IoLogoGitlab />
+        </Link>
+
+        {/* Mobile toggle */}
+        <button
+          className="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarContent"
+          aria-controls="navbarContent"
+          aria-expanded={showNavbar}
+          aria-label="Toggle navigation"
+          onClick={() => setShowNavbar(s => !s)}
+        >
+          <span className="navbar-toggler-icon" />
+        </button>
+
+        {/* Navigation Links */}
+        <div
+          className={`collapse navbar-collapse justify-content-end ${
+            showNavbar ? "show" : ""
+          }`}
+          id="navbarContent"
+        >
+          <ul className="navbar-nav align-items-center gap-3">
+            <li className="nav-item">
+              <NavLink className="nav-link" to="/profile">
+                Hi, <BiLogoFirebase /> Aniket <BiLogoFirebase />
+              </NavLink>
+            </li>
+            <li className="nav-item">
+              <Link className="nav-link" to="/">
+                Logout
+              </Link>
+            </li>
+            <li className="nav-item">
+              <Link className="nav-link" to="/login">
+                Login
+              </Link>
+            </li>
+            <li className="nav-item">
+              <Link className="nav-link" to="/register">
+                Register
+              </Link>
+            </li>
+            <li className="nav-item">
+              <Link className="nav-link fw-bold" to="#">
+                Create Post
+              </Link>
+            </li>
+
+            <li className="nav-item d-flex align-items-center">
+              {/* Theme Toggle Switch (controlled input) */}
+              <div className="form-check form-switch mb-0">
+                <input
+                  className="form-check-input"
+                  type="checkbox"
+                  id="toggleSwitch"
+                  checked={darkMode}               // controlled
+                  onChange={handleDarkMode}        // must provide onChange for checked
+                  aria-label="Toggle dark mode"
+                />
+                <label className="ms-2 mb-0" htmlFor="toggleSwitch">
+                  {darkMode ? "Dark" : "Light"}
+                </label>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+  );
+};
+
+export default Navbar;
