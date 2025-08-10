@@ -2,6 +2,8 @@ import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import axios from 'axios';
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSpinner } from '@fortawesome/free-solid-svg-icons'
@@ -16,6 +18,10 @@ const Register = () => {
   const [success, setSuccess] = useState(false)
   const [loading, setLoading] = useState(false)
 
+
+    const navigate = useNavigate()
+  
+
   const handleRegistration = async (e) => {
     e.preventDefault();
     setLoading(true);
@@ -29,6 +35,9 @@ const Register = () => {
       console.log('registered', res.data);
       console.log("registration successfull !")
       alert("Registration successful!")
+
+      navigate('/login')
+
       setErrors({})
     } catch (err) {
       setErrors(err.response.data);

@@ -1,14 +1,28 @@
 // Navbar.jsx
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { IoLogoGitlab } from "react-icons/io5";
 import { RxGithubLogo } from "react-icons/rx";
 import { BiLogoFirebase } from "react-icons/bi";
 import { RiAngularjsLine } from "react-icons/ri";
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
+import { AuthContext } from "../authprovider/AuthProvider";
+
 
 const Navbar = ({ darkMode, handleDarkMode }) => {
   const [showNavbar, setShowNavbar] = useState(false);
+  const {isLoggedIn, setIsLoggedIn} = useContext(AuthContext)
+
+  const navigate = useNavigate();
+
+  const handleLogout = ()=> {
+    localStorage.removeItem('accessToken')
+    localStorage.removeItem('refreshToken')
+    setIsLoggedIn(false)
+    navigate('/')
+
+  }
+  
 
   return (
     <nav className="navbar navbar-expand-lg border-bottom py-3">
@@ -52,11 +66,16 @@ const Navbar = ({ darkMode, handleDarkMode }) => {
                 Hi, <BiLogoFirebase /> Aniket <BiLogoFirebase />
               </NavLink>
             </li>
+
+          {isLoggedIn ? (
             <li className="nav-item">
-              <Link className="nav-link" to="/">
+              <Link className="nav-link" onClick={handleLogout}>
                 Logout
               </Link>
             </li>
+
+            ) : (
+              <>
             <li className="nav-item">
               <Link className="nav-link" to="/login">
                 Login
@@ -67,6 +86,10 @@ const Navbar = ({ darkMode, handleDarkMode }) => {
                 Register
               </Link>
             </li>
+              </>
+            )}
+
+
             <li className="nav-item">
               <Link className="nav-link fw-bold" to="#">
                 Create Post

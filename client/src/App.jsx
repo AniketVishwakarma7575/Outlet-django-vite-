@@ -7,7 +7,7 @@ import ProfilePage from './pages/ProfilePage';
 // import Login from './components/Login/Login'
 import Login from './components/Login/Login'
 import Register from './components/Login/Register'
-
+import AuthProvider from './components/authprovider/AuthProvider'
 
 // import DetailsPage from './pages/DetailsPage';
 
@@ -16,6 +16,7 @@ function App() {
   
   return (
     <>
+    <AuthProvider>
       {/* <BrowserRouter> */}
       <Routes>
         <Route path='/' element={<AppLayout />}>
@@ -29,6 +30,7 @@ function App() {
         </Route>
       </Routes>
       {/* </BrowserRouter> */}
+    </AuthProvider>
     </>
   );
 }

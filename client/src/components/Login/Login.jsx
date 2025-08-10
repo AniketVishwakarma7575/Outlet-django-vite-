@@ -1,28 +1,50 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 // Login.jsx (simplified)
 import axios from 'axios';
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { AuthContext } from '../authprovider/AuthProvider'
+
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faSpinner } from '@fortawesome/free-solid-svg-icons'
 
 const Login = () => {
 
 
-  const [email, setEmail] = useState('');
+  const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [errors, setErrors] = useState({})
+  const {isLoggdIn, setIsLoggedIn} = useContext(AuthContext)
+
+  const [loading, setLoading] = useState(false)
+  const navigate = useNavigate()
+
 
   const handleLogin = async (e) => {
     e.preventDefault();
+    setLoading(true)
+
+    const userData = { username, password }
+    console.log("user data is here", userData);
+
     try {
-      const res = await axios.post('http://127.0.0.1:8000/api/login/', {
-        email, password,
-      });
-      localStorage.setItem('token', res.data.token);
-      console.log('user', res.data.user);
+      const response = await axios.post('http://127.0.0.1:8000/api/v1/token/', userData)
+      console.log(response.data);
+      localStorage.setItem("accessToken", response.data.access)
+      localStorage.setItem("refreshToken", response.data.refresh)
+      console.log("login successful !")
+      setIsLoggedIn(true)
+      navigate('/')
     } catch (err) {
-      console.error(err.response?.data || err.message);
+      setErrors(err.response.data);
+      console.error("invalid credentials", err.response.data);
+      console.log("invalid credentials")
+    } finally {
+      setLoading(false)
     }
-  };
+  }
 
 
   return (
@@ -31,17 +53,27 @@ const Login = () => {
         <h3 className="text-center mb-4 text-success">Login</h3>
         <form onSubmit={handleLogin} >
           <div className="mb-3">
-            <label className="form-label">Email address</label>
-            <input type="email" className="form-control" placeholder="Enter email" required />
+            <label className="form-label">Username</label>
+            <input type="text" className="form-control" placeholder="Enter email" value={username} onChange={(e) => setUsername(e.target.value)} required />
           </div>
 
           <div className="mb-3">
             <label className="form-label">Password</label>
-            <input type="password" className="form-control" placeholder="Enter password" required />
+            <input type="password" className="form-control" placeholder="Enter password" value={password} onChange={(e) => setPassword(e.target.value)} required />
           </div>
 
+          {/* {errors && (
+            <small className="text-danger">
+              {error}
+            </small>
+          )} */}
+
           <div className="d-grid">
-            <button type="submit" className="btn btn-success">Login</button>
+            {loading ? (
+              <button type="submit" className="btn btn-success" disabled><FontAwesomeIcon icon={faSpinner} spin />Plese wite...</button>
+            ) : (
+              <button type="submit" className="btn btn-success">Login</button>
+            )}
           </div>
 
           <p className="mt-3 text-center">

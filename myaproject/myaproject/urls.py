@@ -19,5 +19,7 @@ from django.urls import path, include
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+
+    # Base Api Endpoint
     path('api/v1/',include('api.urls')),
 ]
