@@ -2,36 +2,52 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import AppLayout from './components/AppLayout/AppLayout';
 import HomePage from './pages/HomePage';
-import DetailsPage from './pages/DetailsPage';
-import ProfilePage from './pages/ProfilePage';
-// import Login from './components/Login/Login'
-import Login from './components/Login/Login'
-import Register from './components/Login/Register'
-import AuthProvider from './components/authprovider/AuthProvider'
-
-// import DetailsPage from './pages/DetailsPage';
+import Hero from './components/Hero/Hero';
+import Login from './components/Login/Login';
+import Register from './components/Login/Register';
+import AuthProvider from './components/authprovider/AuthProvider';
+import ErrorPages from './components/ErroPage/ErrorPages';
+import ProductPage from './PRODUCT/ProductPages';
+import Cart from './components/Cart/Cart';
+import Contect from './components/contect/contect';
+import About from './pages/About';
+import { useEffect, useState } from 'react';
+import api from './api'; // <-- Make sure this path is correct
 
 function App() {
+  const [numCartItems, setNumberCartItems] = useState(0);
+  const cart_code = localStorage.getItem("cart_code");
 
-  
+useEffect(() => {
+  if (cart_code) {
+    api.get(`get_cart_stat/?cart_code=${cart_code}`) // <-- slash add
+      .then(res => {
+        console.log(res.data);
+        setNumberCartItems(res.data.num_of_items);
+      })
+      .catch(err => {
+        console.log(err.message);
+      });
+  }
+}, [cart_code]);
+
+
   return (
-    <>
     <AuthProvider>
-      {/* <BrowserRouter> */}
       <Routes>
-        <Route path='/' element={<AppLayout />}>
+        <Route path='/' element={<AppLayout numCartItems={numCartItems} />}>
           <Route index element={<HomePage />} />
-          <Route path='/detail' element={<DetailsPage />} />
-          <Route path='/profile' element={<ProfilePage />} />
-
-          <Route path='/login' element={<Login />} />
-          <Route path='/register' element={<Register />} />
-
+          <Route path='profile' element={<Hero />} />
+          <Route path='contect' element={<Contect />} />
+          <Route path='about' element={<About />} />
+          <Route path='product/:slug' element={<ProductPage setNumberCartItems={setNumberCartItems} />} />
+          <Route path='login' element={<Login />} />
+          <Route path='register' element={<Register />} />
+          <Route path='cart' element={<Cart />} />
+          <Route path='*' element={<ErrorPages />} />
         </Route>
       </Routes>
-      {/* </BrowserRouter> */}
     </AuthProvider>
-    </>
   );
 }
 

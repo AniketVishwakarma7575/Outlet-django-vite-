@@ -37,10 +37,12 @@ const Login = () => {
       console.log("login successful !")
       setIsLoggedIn(true)
       navigate('/')
+
     } catch (err) {
       setErrors(err.response.data);
       console.error("invalid credentials", err.response.data);
       console.log("invalid credentials")
+
     } finally {
       setLoading(false)
     }
@@ -55,12 +57,22 @@ const Login = () => {
           <div className="mb-3">
             <label className="form-label">Username</label>
             <input type="text" className="form-control" placeholder="Enter email" value={username} onChange={(e) => setUsername(e.target.value)} required />
-          </div>
+          
+          {errors.username && (
+              <small className="text-danger">
+                {errors.username}
+              </small>
+            )}</div>
 
           <div className="mb-3">
             <label className="form-label">Password</label>
             <input type="password" className="form-control" placeholder="Enter password" value={password} onChange={(e) => setPassword(e.target.value)} required />
-          </div>
+          
+          {errors.password && (
+              <small className="text-danger">
+                {errors.password}
+              </small>
+            )}</div>
 
           {/* {errors && (
             <small className="text-danger">

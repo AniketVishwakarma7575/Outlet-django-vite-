@@ -1,5 +1,5 @@
 import React from 'react';
-import heroImg from '../../images/aniket.jpg';
+import heroImg from '../../images/photo.avif';
 const Hero = () => {
     return (
         <div className="container text-center my-5">

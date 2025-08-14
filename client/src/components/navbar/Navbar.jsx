@@ -7,22 +7,27 @@ import { BiLogoFirebase } from "react-icons/bi";
 import { RiAngularjsLine } from "react-icons/ri";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import { AuthContext } from "../authprovider/AuthProvider";
+import ShoppingCartOutlined from "@mui/icons-material/ShoppingCartOutlined";
+import { Badge } from '@mui/material';
 
 
-const Navbar = ({ darkMode, handleDarkMode }) => {
+const Navbar = ({ darkMode, handleDarkMode, numCartItems }) => {
   const [showNavbar, setShowNavbar] = useState(false);
-  const {isLoggedIn, setIsLoggedIn} = useContext(AuthContext)
+  const { isLoggedIn, setIsLoggedIn } = useContext(AuthContext)
 
   const navigate = useNavigate();
 
-  const handleLogout = ()=> {
+  const handleLogout = () => {
     localStorage.removeItem('accessToken')
     localStorage.removeItem('refreshToken')
     setIsLoggedIn(false)
     navigate('/')
 
   }
-  
+
+
+  // cart increndcqdb
+
 
   return (
     <nav className="navbar navbar-expand-lg border-bottom py-3">
@@ -30,10 +35,10 @@ const Navbar = ({ darkMode, handleDarkMode }) => {
         {/* Brand Icons */}
         <Link to="/" className="d-flex align-items-center">
           {/* <RxGithubLogo size={40} /> */} &nbsp;&nbsp;&nbsp;&nbsp;
-          <RiAngularjsLine size={40}/>
+          <RiAngularjsLine size={40} />
           &nbsp;&nbsp;&nbsp;
         </Link>
-&nbsp;
+        &nbsp;
         {/* Brand Name */}
         <Link className="navbar-brand fw-bold" to="/">
           <IoLogoGitlab /> DevOutlet <IoLogoGitlab />
@@ -55,9 +60,8 @@ const Navbar = ({ darkMode, handleDarkMode }) => {
 
         {/* Navigation Links */}
         <div
-          className={`collapse navbar-collapse justify-content-end ${
-            showNavbar ? "show" : ""
-          }`}
+          className={`collapse navbar-collapse justify-content-end ${showNavbar ? "show" : ""
+            }`}
           id="navbarContent"
         >
           <ul className="navbar-nav align-items-center gap-3">
@@ -67,34 +71,65 @@ const Navbar = ({ darkMode, handleDarkMode }) => {
               </NavLink>
             </li>
 
-          {isLoggedIn ? (
             <li className="nav-item">
-              <Link className="nav-link" onClick={handleLogout}>
-                Logout
+              <Link className="nav-link" to="/product">
+                Product
               </Link>
             </li>
 
+            <li className="nav-item">
+              <Link className="nav-link" to="/about">
+                About
+              </Link>
+            </li>
+
+            <li className="nav-item">
+              <Link className="nav-link" to="/contect">
+                Contact
+              </Link>
+            </li>
+
+            {isLoggedIn ? (
+              <li className="nav-item">
+                <Link className="nav-link" onClick={handleLogout}>
+                  Logout
+                </Link>
+              </li>
+
             ) : (
               <>
-            <li className="nav-item">
-              <Link className="nav-link" to="/login">
-                Login
-              </Link>
-            </li>
-            <li className="nav-item">
-              <Link className="nav-link" to="/register">
-                Register
-              </Link>
-            </li>
+                <li className="nav-item">
+                  <Link className="nav-link" to="/login">
+                    Login
+                  </Link>
+                </li>
+                <li className="nav-item">
+                  <Link className="nav-link" to="/register">
+                    Register
+                  </Link>
+                </li>
               </>
             )}
 
 
             <li className="nav-item">
-              <Link className="nav-link fw-bold" to="#">
-                Create Post
+              <Link className="nav-link fw-bold position-relative" to="/cart">
+                <Badge
+                  badgeContent={numCartItems}
+                  color="secondary"
+                  showZero
+                  overlap="circular"
+                  anchorOrigin={{
+                    vertical: 'top',
+                    horizontal: 'right',
+                  }}
+                >
+                  <ShoppingCartOutlined />
+                </Badge>
+                {/* &nbsp;&nbsp;&nbsp;{numCartItems} */}
               </Link>
             </li>
+
 
             <li className="nav-item d-flex align-items-center">
               {/* Theme Toggle Switch (controlled input) */}

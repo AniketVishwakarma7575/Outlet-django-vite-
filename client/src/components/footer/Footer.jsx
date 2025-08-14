@@ -10,6 +10,7 @@ import { RiArchive2Fill } from "react-icons/ri";
 import { TbBrandOauth } from "react-icons/tb";
 import { IoIosContacts } from "react-icons/io";
 import { FcAbout } from "react-icons/fc";
+import { Link } from "react-router-dom";
 
 
 
@@ -26,10 +27,10 @@ const Footer = () => {
             <h5 className="text-uppercase mb-3 font-weight-bold ">DevOutlet</h5>
             <p>Empowering developers to build, share, and connect across the globe with awesome tools and technologies.</p>
             <div className="d-flex gap-3 mt-3">
-              <a href="#" className="text-light"><FaFacebookF size={40} color=""  /></a>
-              <a href="#" className="text-light"><FaTwitter size={40} color=""  /></a>
-              <a href="#" className="text-light"><FaInstagram size={40} color="" /></a>
-              <a href="#" className="text-light"><FaGithub size={40} color=""  /></a>
+              <Link to="#" className="text-light"><FaFacebookF size={40} color=""  /></Link>
+              <Link to="#" className="text-light"><FaTwitter size={40} color=""  /></Link>
+              <Link to="#" className="text-light"><FaInstagram size={40} color="" /></Link>
+              <Link to="#" className="text-light"><FaGithub size={40} color=""  /></Link>
             </div>
           </div>
 
@@ -37,12 +38,12 @@ const Footer = () => {
           <div className="col-md-3 mb-4">
             <h5 className="text-uppercase mb-3 font-weight-bold ">Quick Links</h5>
             <ul className="list-unstyled">
-              <li><a href="#" className="text-light text-decoration-none"><FaHome /> Home</a></li>
-              <li><a href="#" className="text-light text-decoration-none"><FcAbout /> About</a></li>
-              <li><a href="#" className="text-light text-decoration-none"><PiGitlabLogoSimpleFill /> Blog</a></li>
-              <li><a href="#" className="text-light text-decoration-none"><RiArchive2Fill /> Archived</a></li>
-              <li><a href="#" className="text-light text-decoration-none"><TbBrandOauth /> Author</a></li>
-              <li><a href="#" className="text-light text-decoration-none"><IoIosContacts /> Contact</a></li>
+              <li><Link to="/" className="text-light text-decoration-none"><FaHome /> Home</Link></li>
+              <li><Link to="/about" className="text-light text-decoration-none"><FcAbout /> About</Link></li>
+              <li><Link to="#" className="text-light text-decoration-none"><PiGitlabLogoSimpleFill /> Blog</Link></li>
+              <li><Link to="#" className="text-light text-decoration-none"><RiArchive2Fill /> Archived</Link></li>
+              <li><Link to="#" className="text-light text-decoration-none"><TbBrandOauth /> Author</Link></li>
+              <li><Link to="/contect" className="text-light text-decoration-none"><IoIosContacts /> Contact</Link></li>
             </ul>
           </div>
 
@@ -68,7 +69,7 @@ const Footer = () => {
         {/* Bottom line */}
         <div className="text-center mt-4">
           <hr className="bg-light" />
-          <p>Aj style !</p>
+          {/* <p>Aj style !</p> */}
           <p className=" mb-0" style={{color:""}}>© {new Date().getFullYear()} <strong>DevOutlet</strong>. All Rights Reserved.</p>
         </div>
       </div>
