@@ -4,6 +4,9 @@ import { BASE_URL } from '../api';
 import { Link } from 'react-router-dom';
 import api from '../api';
 
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 const HomeCard = ({ id, title, description, price, image, slug }) => {
   const dummyImage = "https://via.placeholder.com/300x200.png?text=Dummy+Image";
   const cart_code = localStorage.getItem("cart_code");
@@ -12,7 +15,8 @@ const HomeCard = ({ id, title, description, price, image, slug }) => {
     e.preventDefault(); // Prevent link navigation
     const newItem = { cart_code, product_id: id };
     api.post("add_item/", newItem)
-      .then(res => alert(res.data.message))
+      .then(res => {res.data
+        toast.success("Cart item added successfully")})
       .catch(err => console.error(err.message));
   }
 

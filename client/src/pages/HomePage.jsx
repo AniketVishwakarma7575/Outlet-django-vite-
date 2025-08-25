@@ -3,6 +3,8 @@ import Header from "../components/header/Header";
 import HomeCard from "./HomeCard";
 import PlaceHolderContainer from "../pages/placeHolderContainer";
 import api from '../api';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const HomePage = () => {
   const [products, setProducts] = useState([]);

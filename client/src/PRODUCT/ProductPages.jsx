@@ -3,6 +3,8 @@ import { useParams } from 'react-router-dom';
 import ProductPagePlaceHolder from './ProductPagePlaceHolder';
 import RelatedProducts from './RelatedProducts';
 import api, { BASE_URL } from '../api';
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const ProductPage = ({ setNumberCartItems }) => {
   const { slug } = useParams();
@@ -34,7 +36,9 @@ const ProductPage = ({ setNumberCartItems }) => {
     api.post("add_item/", newItem)
       .then(res => {
         console.log("Add to Cart API Response:", res.data);
-        alert(res.data.message);
+        // alert(res.data.message);
+                toast.success("Cart item added successfully")
+
         setInCart(true);
         setNumberCartItems(curr => curr + 1)
       })

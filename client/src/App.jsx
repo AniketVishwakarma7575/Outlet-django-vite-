@@ -12,7 +12,12 @@ import Cart from './components/Cart/Cart';
 import Contect from './components/contect/contect';
 import About from './pages/About';
 import { useEffect, useState } from 'react';
-import api from './api'; // <-- Make sure this path is correct
+import api from './api'; 
+// import Checkout from "./components/Checkout/Checkout";
+import Checkout from "./components/Checkout/Checkout";
+import Success from "./pages/Success";
+// import Success from "./Success";
+
 
 function App() {
   const [numCartItems, setNumberCartItems] = useState(0);
@@ -20,7 +25,7 @@ function App() {
 
 useEffect(() => {
   if (cart_code) {
-    api.get(`get_cart_stat/?cart_code=${cart_code}`) // <-- slash add
+    api.get(`get_cart_stat/?cart_code=${cart_code}`)
       .then(res => {
         console.log(res.data);
         setNumberCartItems(res.data.num_of_items);
@@ -44,6 +49,9 @@ useEffect(() => {
           <Route path='login' element={<Login />} />
           <Route path='register' element={<Register />} />
           <Route path='cart' element={<Cart />} />
+          <Route path="/order" element={<Checkout />} />
+          <Route path="/checkout" element={<Checkout />} />
+          <Route path="/success" element={<Success />} />
           <Route path='*' element={<ErrorPages />} />
         </Route>
       </Routes>

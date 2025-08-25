@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import './Header.css';
 // import banner from '../../images/aniket.jpg';
-import banner from '../../images/header2.avif' 
+import banner from '../../images/123456.jpg' 
 import { GiChainedArrowHeads } from "react-icons/gi";
 
 
@@ -16,7 +16,7 @@ const Header = () => {
           <p className="hero-subtitle">
             Your one-stop shop for the latest trends
           </p>
-          <Link className="btn btn-warning btn-lg mt-3" to="/">
+          <Link className="btn btn-warning btn-lg mt-3" to="/product">
             Shop Now
           </Link>
         </div>

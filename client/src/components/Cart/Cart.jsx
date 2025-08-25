@@ -3,7 +3,9 @@ import './Cart.css';
 import { Link, useNavigate } from 'react-router-dom';
 import { MdDeleteOutline } from 'react-icons/md';
 import api from '../../api';
-import { toast } from 'react-toastify';
+// import { toast } from 'react-toastify';
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const BASE_URL = "http://127.0.0.1:8000";
 const dummyImage = "https://via.placeholder.com/60";
@@ -21,7 +23,7 @@ const Cart = () => {
   const fetchCart = () => {
     api.get(`get_cart?cart_code=${cart_code}`)
       .then(res => {
-        toast.success("Cart item added successfully")
+        // toast.success("Cart item added successfully")
         setCartItems(res.data.items || []);
       })
       .catch(err => console.log(err.message));
@@ -36,6 +38,7 @@ const Cart = () => {
             item.id === itemId ? { ...item, quantity: newQuantity } : item
           )
         );
+        toast.info("Cart item update successfully")
       })
       .catch(err => console.log(err.message));
   };
@@ -44,6 +47,8 @@ const Cart = () => {
     api.delete(`remove_cart_item/${itemId}/`)
       .then(() => {
         setCartItems(prev => prev.filter(item => item.id !== itemId));
+                toast.warning("Cart item remove successfully")
+
       })
       .catch(err => console.log(err.message));
   };

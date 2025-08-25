@@ -3,8 +3,8 @@ import { Outlet } from "react-router-dom";
 import Footer from "../footer/Footer";
 import Navbar from "../navbar/Navbar";
 import { useState } from "react";
-import { ToastContainer} from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+// import { ToastContainer} from 'react-toastify';
+// import 'react-toastify/dist/ReactToastify.css';
 
 
 
@@ -20,7 +20,7 @@ const AppLayout = ({ numCartItems }) => {
     <div className={darkMode ? "dark" : ""}>
       <main className="bg-[#ffffff] dark:bg-[#181A2A] min-h-screen">
         <Navbar darkMode={darkMode} handleDarkMode={handleDarkMode} numCartItems={numCartItems}/>
-        <ToastContainer />
+        {/* <ToastContainer /> */}
         <Outlet />
         <Footer />
       </main>
